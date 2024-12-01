@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feedback-collector
+  labels:
+        app: feedback-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feedback-collector
+  template:
+    metadata:
+      labels:
+        app: feedback-collector
+    spec:
+      containers:
+      - name: feedback-collector
+        image: star17/feedback-collector
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: feedback-collector
+spec:
+  selector:
+    app: feedback-collector
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000

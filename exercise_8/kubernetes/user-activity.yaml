@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-activity-emulator
+  labels:
+        app: user-activity-emulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-activity-emulator
+  template:
+    metadata:
+      labels:
+        app: user-activity-emulator
+    spec:
+      containers:
+      - name: user-activity-emulator
+        image: star17/user-activity-emulator
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-activity-emulator
+spec:
+  selector:
+    app: user-activity-emulator
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 5000
+    nodePort: 30000

@@ -1,0 +1,22 @@
+services:
+  user-activity-emulator:
+    image: star17/user-activity-emulator
+    container_name: user-activity-emulator
+    depends_on:
+      - recommender-model
+      - feedback-collector
+    expose: ["5000"]
+    build: ./user-activity-emulator
+    ports: ["8000:5000"]
+    
+  recommender-model:
+    image: star17/recommender-model
+    container_name: recommender-model
+    expose: ["5000"]
+    build: ./recommender-model
+
+  feedback-collector:
+    image: star17/feedback-collector
+    container_name: feedback-collector
+    expose: ["5000"]
+    build: ./feedback-collector

@@ -1,0 +1,11 @@
+global:
+  scrape_interval:     5s # How often Prometheus scrapes targets
+scrape_configs:
+  #- job_name: 'prometheus'
+   # static_configs:
+    #  - targets: ['localhost:9090'] # Prometheus runs on port 9090
+    #metrics_path: /metrics
+  - job_name: 'feedback-collector'
+    static_configs:
+      - targets: ['feedback-collector:5000'] 
+    metrics_path: /metrics 
